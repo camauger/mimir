@@ -1,0 +1,86 @@
+{
+    "name": "mimir",
+    "displayName": "mimir - un convertisseur DOCX JSON",
+    "description": "Convertit des documents DOCX en JSON et HTML",
+    "version": "0.1.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/camauger/mimir.git"
+    },
+    "engines": {
+        "vscode": "^1.96.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "main": "./extension.js",
+    "license": "MIT",
+    "author": "Christian Amauger",
+    "publisher": "christian-amauger",
+    "contributes": {
+        "commands": [
+            {
+                "command": "mimir.convertToHtml",
+                "title": "DOCX: Convertir en HTML"
+            },
+            {
+                "command": "mimir.convertToJson",
+                "title": "DOCX: Convertir en JSON"
+            },
+            {
+                "command": "mimir.previewHtml",
+                "title": "DOCX: Prévisualiser en HTML"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "when": "resourceExtname == .docx",
+                    "command": "mimir.convertToHtml",
+                    "group": "mimir"
+                },
+                {
+                    "when": "resourceExtname == .docx",
+                    "command": "mimir.convertToJson",
+                    "group": "mimir"
+                },
+                {
+                    "when": "resourceExtname == .docx",
+                    "command": "mimir.previewHtml",
+                    "group": "mimir"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "mimir - un convertisseur DOCX JSON",
+            "properties": {
+                "mimir.saveImagesToDisk": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Sauvegarder les images sur disque plutôt que de les encoder en base64"
+                },
+                "mimir.pythonPath": {
+                    "type": "string",
+                    "default": "python",
+                    "description": "Chemin vers l'exécutable Python"
+                },
+                "mimir.scriptPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Chemin vers le script de conversion DOCX"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
+        "test": "node ./test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.96.0",
+        "eslint": "^8.15.0",
+        "glob": "^8.0.1",
+        "mocha": "^10.0.0"
+    }
+}
